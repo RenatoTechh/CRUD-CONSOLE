@@ -1,0 +1,8 @@
+C:\Users\ClearTech\Documents\Repositorio GITHUB\CRUD-Console\PROJETO-CRUD-CONSOLE\PROJETO-CRUD-CONSOLE\bin\Debug\PROJETO-CRUD-CONSOLE.exe.config
+C:\Users\ClearTech\Documents\Repositorio GITHUB\CRUD-Console\PROJETO-CRUD-CONSOLE\PROJETO-CRUD-CONSOLE\bin\Debug\PROJETO-CRUD-CONSOLE.exe
+C:\Users\ClearTech\Documents\Repositorio GITHUB\CRUD-Console\PROJETO-CRUD-CONSOLE\PROJETO-CRUD-CONSOLE\bin\Debug\PROJETO-CRUD-CONSOLE.pdb
+C:\Users\ClearTech\Documents\Repositorio GITHUB\CRUD-Console\PROJETO-CRUD-CONSOLE\PROJETO-CRUD-CONSOLE\obj\Debug\PROJETO-CRUD-CONSOLE.csproj.AssemblyReference.cache
+C:\Users\ClearTech\Documents\Repositorio GITHUB\CRUD-Console\PROJETO-CRUD-CONSOLE\PROJETO-CRUD-CONSOLE\obj\Debug\PROJETO-CRUD-CONSOLE.csproj.SuggestedBindingRedirects.cache
+C:\Users\ClearTech\Documents\Repositorio GITHUB\CRUD-Console\PROJETO-CRUD-CONSOLE\PROJETO-CRUD-CONSOLE\obj\Debug\PROJETO-CRUD-CONSOLE.csproj.CoreCompileInputs.cache
+C:\Users\ClearTech\Documents\Repositorio GITHUB\CRUD-Console\PROJETO-CRUD-CONSOLE\PROJETO-CRUD-CONSOLE\obj\Debug\PROJETO-CRUD-CONSOLE.exe
+C:\Users\ClearTech\Documents\Repositorio GITHUB\CRUD-Console\PROJETO-CRUD-CONSOLE\PROJETO-CRUD-CONSOLE\obj\Debug\PROJETO-CRUD-CONSOLE.pdb
