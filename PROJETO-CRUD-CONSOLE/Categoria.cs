@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace PROJETO_CRUD_CONSOLE
 {
@@ -34,11 +35,21 @@ namespace PROJETO_CRUD_CONSOLE
             //Recebe o nome da categoria
             Console.Write("Digite o nome da Categoria: ");
             string nome = Console.ReadLine();
-            //Cria um novo objeto
-            var categoria = new Categoria(nome, lista);
-            //Adiciona a nova categoria na lista
-            lista.Add(categoria);
-            Console.WriteLine();
+            if (nome.Length >= 3 && Regex.IsMatch(nome, "^[a-zA-Z' ']+$") && nome.Length <= 128)
+            {
+                //Cria um novo objeto
+                var categoria = new Categoria(nome, lista);
+
+                //Adiciona a nova categoria na lista
+                lista.Add(categoria);
+                Console.WriteLine("-");
+                Console.WriteLine("CATEGORIA CADASTRADA COM SUCESSO"+Environment.NewLine);
+
+            }
+            else
+            {
+                Console.WriteLine("É PERMITIDO SOMENTE DE 3 - 128 CARACTERES (A-Z) ");
+            }
         }
         public static void PesquisaCategoria(List<Categoria> lista)
         {
@@ -46,20 +57,26 @@ namespace PROJETO_CRUD_CONSOLE
             Console.WriteLine("--------------------");
             Console.Write("DIGITE A CATEGORIA PROCURADA: ");
             string categoriaEscolhida = Console.ReadLine();
-
-            //Verifica se a categoria existe e retorna uma lista com os resultados encontrados
-            var listaEncontrados = lista.Where(x => x.Nome.ToLower().Contains(categoriaEscolhida.ToLower()));
-
-            //Valida se o valor procurado retorna algum resultado
-            if (listaEncontrados.Count() == 0)
+            if (categoriaEscolhida.Length >= 3 && Regex.IsMatch(categoriaEscolhida, "^[a-zA-Z]+$") && categoriaEscolhida.Length <= 128)
             {
-                Console.WriteLine();
-                Console.WriteLine("Categoria não encontrada" + Environment.NewLine);
+                //Verifica se a categoria existe e retorna uma lista com os resultados encontrados
+                var listaEncontrados = lista.Where(x => x.Nome.ToLower().Contains(categoriaEscolhida.ToLower()));
+
+                //Valida se o valor procurado retorna algum resultado
+                if (listaEncontrados.Count() == 0)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Categoria não encontrada" + Environment.NewLine);
+                }
+                foreach (var categoria in listaEncontrados)
+                {
+                    Console.WriteLine("-");
+                    Console.WriteLine(categoria.ToString());
+                }
             }
-            foreach (var categoria in listaEncontrados)
+            else
             {
-                Console.WriteLine("-");
-                Console.WriteLine(categoria.ToString());
+                Console.WriteLine("É PERMITIDO SOMENTE DE 3 - 128 CARACTERES (A-Z) ");
             }
         }
 
@@ -67,7 +84,7 @@ namespace PROJETO_CRUD_CONSOLE
         {
             //Recebe o nome da categoria procurada
             Console.WriteLine("--------------------");
-            Console.Write("DIGITE UMA CATEGORIA PARA EDITAR: ");
+            Console.Write("DIGITE O NOME DA CATEGORIA PARA EDITAR: ");
             string categoriaEscolhida = Console.ReadLine();
 
             //Verifica se a categoria existe e retorna uma lista com os resultados encontrados
@@ -85,7 +102,7 @@ namespace PROJETO_CRUD_CONSOLE
                 Console.WriteLine("-");
                 Console.WriteLine(categoria.ToString() + Environment.NewLine);
 
-                Console.Write("DIGITE O NOME DA CATEGORIA QUE DESEJA EDITAR: ");
+                Console.Write("DIGITE UM NOVO NOME PARA A CATEGORIA: ");
                 string categoriaNovoNome = Console.ReadLine();
 
                 categoria.Nome = categoriaNovoNome;
@@ -103,15 +120,21 @@ namespace PROJETO_CRUD_CONSOLE
             string categoriaEscolhida = Console.ReadLine();
 
             //Verifica se a categoria existe e retorna uma lista com os resultados encontrados
-            var listaCategoriasEncontradas = lista.Where(x => x.Nome.ToLower().Equals(categoriaEscolhida.ToLower())).ToList();
+            var listaCategoriasEncontradas = lista.Where(x => x.Nome.ToLower().Equals(categoriaEscolhida.ToLower()));
 
             if (listaCategoriasEncontradas.Count() == 0)
             {
                 Console.WriteLine();
                 Console.WriteLine("Categoria não encontrada" + Environment.NewLine);
             }
+            else
+            {
+                lista.RemoveAll((x) => x.Nome == categoriaEscolhida);
+                Console.WriteLine("-");
+                Console.WriteLine("CATEGORIA EXCLUÍDA COM SUCESSO"+Environment.NewLine);
+            }
 
-            listaCategoriasEncontradas.RemoveAll((x) => x.Nome == categoriaEscolhida);
+            
 
         }
 
