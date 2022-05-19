@@ -13,7 +13,6 @@ namespace PROJETO_CRUD_CONSOLE
 
             Menu.PrintarMenu();
 
-            Console.ReadLine();
         }
     }
 }

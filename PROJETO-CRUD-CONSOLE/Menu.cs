@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace PROJETO_CRUD_CONSOLE
@@ -17,24 +14,38 @@ namespace PROJETO_CRUD_CONSOLE
                 Console.WriteLine("Adicionar = 1");
                 Console.WriteLine("Pesquisar = 2");
                 Console.WriteLine("Editar = 3");
-                Console.WriteLine("Sair = 0");
-
-                Console.WriteLine("Escolha a opção desejada: ");
+                Console.WriteLine("Excluir = 4");
+                Console.WriteLine("Sair = 0"+ Environment.NewLine);
+                //Recebe a opção escolhida
+                Console.Write("Escolha a opção desejada: ");
                 int opcaoEscolhida = int.Parse(Console.ReadLine());
 
-
+                //Chama o metodo adicionar
                 if (opcaoEscolhida == 1)
                 {
                     Categoria.AdicionaCategoria(lista);
                 }
+                //Chama o metodo pesquisar
                 else if (opcaoEscolhida == 2)
                 {
                     Categoria.PesquisaCategoria(lista);
                     Console.WriteLine("--------------------");
                 }
+                //Chama o metodo editar
                 else if (opcaoEscolhida == 3)
                 {
-                    //editar
+                    Categoria.EditarCategoria(lista);
+                    Console.WriteLine("--------------------");
+                }
+                //Chama o metodo excluir
+                else if (opcaoEscolhida == 4)
+                {
+                    Categoria.ExcluirCategoria(lista);
+                }
+                else if (opcaoEscolhida > 4)
+                {
+                    Console.WriteLine("-");
+                    Console.WriteLine("ESCOLHA UMA DAS OPÇÕES ABAIXO" + Environment.NewLine);
                 }
                 else
                 {

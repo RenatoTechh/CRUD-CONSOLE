@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PROJETO_CRUD_CONSOLE
 {
@@ -55,13 +53,66 @@ namespace PROJETO_CRUD_CONSOLE
             //Valida se o valor procurado retorna algum resultado
             if (listaEncontrados.Count() == 0)
             {
-                Console.WriteLine("Categoria não encontrada");
+                Console.WriteLine();
+                Console.WriteLine("Categoria não encontrada" + Environment.NewLine);
             }
-            foreach (var item in listaEncontrados)
+            foreach (var categoria in listaEncontrados)
             {
                 Console.WriteLine("-");
-                Console.WriteLine(item.ToString());
+                Console.WriteLine(categoria.ToString());
             }
+        }
+
+        public static void EditarCategoria(List<Categoria> lista)
+        {
+            //Recebe o nome da categoria procurada
+            Console.WriteLine("--------------------");
+            Console.Write("DIGITE UMA CATEGORIA PARA EDITAR: ");
+            string categoriaEscolhida = Console.ReadLine();
+
+            //Verifica se a categoria existe e retorna uma lista com os resultados encontrados
+            var listaCategoriasEncontradas = lista.Where(x => x.Nome.ToLower().Equals(categoriaEscolhida.ToLower()));
+
+            if (listaCategoriasEncontradas.Count() == 0)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Categoria não encontrada" + Environment.NewLine);
+            }
+
+            foreach (var categoria in listaCategoriasEncontradas)
+            {
+                //Exibe a categoria na tela
+                Console.WriteLine("-");
+                Console.WriteLine(categoria.ToString() + Environment.NewLine);
+
+                Console.Write("DIGITE O NOME DA CATEGORIA QUE DESEJA EDITAR: ");
+                string categoriaNovoNome = Console.ReadLine();
+
+                categoria.Nome = categoriaNovoNome;
+                categoria.DataModificacao = DateTime.Now;
+                Console.WriteLine("-");
+                Console.Write("NOVO NOME DA CATEGORIA EDITADO COM SUCESSO, AGORA ELA SE CHAMA: " + categoria.Nome + Environment.NewLine);
+
+            }
+        }
+        public static void ExcluirCategoria(List<Categoria> lista)
+        {
+            //Recebe o nome da categoria procurada
+            Console.WriteLine("--------------------");
+            Console.Write("DIGITE O NOME DA CATEGORIA QUE DESEJA EXCLUIR: ");
+            string categoriaEscolhida = Console.ReadLine();
+
+            //Verifica se a categoria existe e retorna uma lista com os resultados encontrados
+            var listaCategoriasEncontradas = lista.Where(x => x.Nome.ToLower().Equals(categoriaEscolhida.ToLower())).ToList();
+
+            if (listaCategoriasEncontradas.Count() == 0)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Categoria não encontrada" + Environment.NewLine);
+            }
+
+            listaCategoriasEncontradas.RemoveAll((x) => x.Nome == categoriaEscolhida);
+
         }
 
         public override string ToString()
