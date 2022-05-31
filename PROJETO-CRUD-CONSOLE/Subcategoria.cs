@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace PROJETO_CRUD_CONSOLE
 {
-    public class Categoria
+    public class Subcategoria
     {
         private DateTime _dataNaoModificada;
 
@@ -15,7 +15,7 @@ namespace PROJETO_CRUD_CONSOLE
         public DateTime DataCriacao { get; private set; }
         public DateTime DataModificacao { get; private set; }
 
-        public Categoria(string nome, List<Categoria> lista)
+        public Subcategoria(string nome, List<Subcategoria> lista)
         {
             Id = lista.Count;
             if (ValidaNome(nome))
@@ -30,21 +30,20 @@ namespace PROJETO_CRUD_CONSOLE
             Status = "Ativo";
             DataCriacao = DateTime.Now;
         }
-        public static void AdicionaCategoria(List<Categoria> lista)
+        public static void AdicionaSubcategoria(List<Subcategoria> lista)
         {
             //Recebe o nome da categoria
             Console.Write("Digite o nome da Categoria: ");
             string nome = Console.ReadLine();
-
             if (ValidaNome(nome))
             {
                 //Cria um novo objeto
-                var categoria = new Categoria(nome, lista);
+                var subcategoria = new Subcategoria(nome, lista);
 
                 //Adiciona a nova categoria na lista
-                lista.Add(categoria);
+                lista.Add(subcategoria);
                 Console.WriteLine("-");
-                Console.WriteLine("CATEGORIA CADASTRADA COM SUCESSO"+Environment.NewLine);
+                Console.WriteLine("SUBCATEGORIA CADASTRADA COM SUCESSO" + Environment.NewLine);
 
             }
             else
@@ -52,27 +51,27 @@ namespace PROJETO_CRUD_CONSOLE
                 Console.WriteLine("É PERMITIDO SOMENTE DE 3 - 128 CARACTERES (A-Z) ");
             }
         }
-        public static void PesquisaCategoria(List<Categoria> lista)
+        public static void PesquisaSubcategoria(List<Subcategoria> lista)
         {
             //Recebe o nome da categoria procurada
             Console.WriteLine("--------------------");
-            Console.Write("DIGITE A CATEGORIA PROCURADA: ");
-            string categoriaEscolhida = Console.ReadLine();
-            if (ValidaNome(categoriaEscolhida))
+            Console.Write("DIGITE A SUBCATEGORIA PROCURADA: ");
+            string subcategoriaEscolhida = Console.ReadLine();
+            if (ValidaNome(subcategoriaEscolhida))
             {
                 //Verifica se a categoria existe e retorna uma lista com os resultados encontrados
-                var listaEncontrados = lista.Where(x => x.Nome.ToLower().Contains(categoriaEscolhida.ToLower()));
+                var listaEncontrados = lista.Where(x => x.Nome.ToLower().Contains(subcategoriaEscolhida.ToLower()));
 
                 //Valida se o valor procurado retorna algum resultado
                 if (listaEncontrados.Count() == 0)
                 {
                     Console.WriteLine();
-                    Console.WriteLine("Categoria não encontrada" + Environment.NewLine);
+                    Console.WriteLine("SUBCATEGORIA NÃO ENCONTRADA" + Environment.NewLine);
                 }
-                foreach (var categoria in listaEncontrados)
+                foreach (var subcategoria in listaEncontrados)
                 {
                     Console.WriteLine("-");
-                    Console.WriteLine(categoria.ToString());
+                    Console.WriteLine(subcategoria.ToString());
                 }
             }
             else
@@ -81,58 +80,58 @@ namespace PROJETO_CRUD_CONSOLE
             }
         }
 
-        public static void EditarCategoria(List<Categoria> lista)
+        public static void EditarSubcategoria(List<Subcategoria> lista)
         {
             //Recebe o nome da categoria procurada
             Console.WriteLine("--------------------");
             Console.Write("DIGITE O NOME DA CATEGORIA PARA EDITAR: ");
-            string categoriaEscolhida = Console.ReadLine();
+            string subcategoriaEscolhida = Console.ReadLine();
 
             //Verifica se a categoria existe e retorna uma lista com os resultados encontrados
-            var listaCategoriasEncontradas = lista.Where(x => x.Nome.ToLower().Equals(categoriaEscolhida.ToLower()));
+            var listaCategoriasEncontradas = lista.Where(x => x.Nome.ToLower().Equals(subcategoriaEscolhida.ToLower()));
 
             if (listaCategoriasEncontradas.Count() == 0)
             {
                 Console.WriteLine();
-                Console.WriteLine("Categoria não encontrada" + Environment.NewLine);
+                Console.WriteLine("SUBCATEGORIA NÃO ENCONTRADA" + Environment.NewLine);
             }
 
-            foreach (var categoria in listaCategoriasEncontradas)
+            foreach (var subcategoria in listaCategoriasEncontradas)
             {
                 //Exibe a categoria na tela
                 Console.WriteLine("-");
-                Console.WriteLine(categoria.ToString() + Environment.NewLine);
+                Console.WriteLine(subcategoria.ToString() + Environment.NewLine);
 
-                Console.Write("DIGITE UM NOVO NOME PARA A CATEGORIA: ");
-                string categoriaNovoNome = Console.ReadLine();
+                Console.Write("DIGITE UM NOVO NOME PARA A SUBCATEGORIA: ");
+                string subcategoriaNovoNome = Console.ReadLine();
 
-                categoria.Nome = categoriaNovoNome;
-                categoria.DataModificacao = DateTime.Now;
+                subcategoria.Nome = subcategoriaNovoNome;
+                subcategoria.DataModificacao = DateTime.Now;
                 Console.WriteLine("-");
-                Console.Write("NOVO NOME DA CATEGORIA EDITADO COM SUCESSO, AGORA ELA SE CHAMA: " + categoria.Nome + Environment.NewLine);
+                Console.Write("NOVO NOME DA SUBCATEGORIA EDITADO COM SUCESSO, AGORA ELA SE CHAMA: " + subcategoria.Nome + Environment.NewLine);
 
             }
         }
-        public static void ExcluirCategoria(List<Categoria> lista)
+        public static void ExcluirSubcategoria(List<Subcategoria> lista)
         {
             //Recebe o nome da categoria procurada
             Console.WriteLine("--------------------");
-            Console.Write("DIGITE O NOME DA CATEGORIA QUE DESEJA EXCLUIR: ");
-            string categoriaEscolhida = Console.ReadLine();
+            Console.Write("DIGITE O NOME DA SUBCATEGORIA QUE DESEJA EXCLUIR: ");
+            string subcategoriaEscolhida = Console.ReadLine();
 
             //Verifica se a categoria existe e retorna uma lista com os resultados encontrados
-            var listaCategoriasEncontradas = lista.Where(x => x.Nome.ToLower().Equals(categoriaEscolhida.ToLower()));
+            var listaCategoriasEncontradas = lista.Where(x => x.Nome.ToLower().Equals(subcategoriaEscolhida.ToLower()));
 
             if (listaCategoriasEncontradas.Count() == 0)
             {
                 Console.WriteLine();
-                Console.WriteLine("Categoria não encontrada" + Environment.NewLine);
+                Console.WriteLine("SUBCATEGORIA NÃO ENCONTRADA" + Environment.NewLine);
             }
             else
             {
-                lista.RemoveAll((x) => x.Nome == categoriaEscolhida);
+                lista.RemoveAll((x) => x.Nome == subcategoriaEscolhida);
                 Console.WriteLine("-");
-                Console.WriteLine("CATEGORIA EXCLUÍDA COM SUCESSO"+Environment.NewLine);
+                Console.WriteLine("SUBCATEGORIA EXCLUÍDA COM SUCESSO" + Environment.NewLine);
             }
         }
         public static bool ValidaNome(string nome)
@@ -151,9 +150,12 @@ namespace PROJETO_CRUD_CONSOLE
         {
             if (DataModificacao == _dataNaoModificada)
             {
-                return "ID: " + Id + "\n" + "NOME DA CATEGORIA: " + Nome + "\n" + "STATUS: " + Status + "\n" + "DATA DE CRIAÇÃO: " + DataCriacao;
+                return "ID: " + Id + "\n" + "NOME DA SUBCATEGORIA: " + Nome + "\n" + "STATUS: " + Status + "\n" + "DATA DE CRIAÇÃO: " + DataCriacao;
             }
-            return "ID: " + Id + "\n" + "NOME DA CATEGORIA: " + Nome + "\n" + "STATUS: " + Status + "\n" + "DATA DE CRIAÇÃO: " + DataCriacao + "\n" + "DATA DA MODIFICAÇÃO: " + DataModificacao;
+            else
+            {
+                return "ID: " + Id + "\n" + "NOME DA SUBCATEGORIA: " + Nome + "\n" + "STATUS: " + Status + "\n" + "DATA DE CRIAÇÃO: " + DataCriacao + "\n" + "DATA DA MODIFICAÇÃO: " + DataModificacao;
+            }
 
         }
     }

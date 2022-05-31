@@ -12,7 +12,7 @@ namespace PROJETO_CRUD_CONSOLE
         static void Main(string[] args)
         {
 
-            Menu.PrintarMenu();
+            Menu.SelecionaMenu();
           
         }
     }

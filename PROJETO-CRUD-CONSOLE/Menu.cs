@@ -6,8 +6,45 @@ namespace PROJETO_CRUD_CONSOLE
 {
     public static class Menu
     {
-        static List<Categoria> lista = new List<Categoria>();
-        public static void PrintarMenu()
+        static List<Categoria> listaCategorias = new List<Categoria>();
+        static List<Subcategoria> listaSubcategorias = new List<Subcategoria>();
+
+        public static void SelecionaMenu()
+        {
+            
+            while (true)
+            {
+                Console.WriteLine("Menu Categoria = 1");
+                Console.WriteLine("Menu Subcategoria = 2");
+                Console.WriteLine("Sair = 0" + Environment.NewLine);
+
+                Console.Write("Escolha a opção desejada: ");
+                int opcaoEscolhida = int.Parse(Console.ReadLine());
+                Console.WriteLine("-");
+
+                //Chama o menu de Categorias
+                if (opcaoEscolhida == 1)
+                {
+                    PrintarMenuCategoria();
+                }
+                //Chama o menu de Subcategorias
+                else if (opcaoEscolhida == 2)
+                {
+                    PrintarMenuSubcategoria();
+                }
+                else if (opcaoEscolhida > 4)
+                {
+                    Console.WriteLine("-");
+                    Console.WriteLine("ESCOLHA UMA DAS OPÇÕES ABAIXO" + Environment.NewLine);
+                }
+                else
+                {
+                    Console.WriteLine("-");
+                    break;
+                }
+            }
+        }
+        public static void PrintarMenuCategoria()
         {
             while (true)
             {
@@ -23,24 +60,72 @@ namespace PROJETO_CRUD_CONSOLE
                 //Chama o metodo adicionar
                 if (opcaoEscolhida == 1)
                 {
-                    Categoria.AdicionaCategoria(lista);
+                    Categoria.AdicionaCategoria(listaCategorias);
+ 
                 }
                 //Chama o metodo pesquisar
                 else if (opcaoEscolhida == 2)
                 {
-                    Categoria.PesquisaCategoria(lista);
+                    Categoria.PesquisaCategoria(listaCategorias);
                     Console.WriteLine("--------------------");
                 }
                 //Chama o metodo editar
                 else if (opcaoEscolhida == 3)
                 {
-                    Categoria.EditarCategoria(lista);
+                    Categoria.EditarCategoria(listaCategorias);
                     Console.WriteLine("--------------------");
                 }
                 //Chama o metodo excluir
                 else if (opcaoEscolhida == 4)
                 {
-                    Categoria.ExcluirCategoria(lista);
+                    Categoria.ExcluirCategoria(listaCategorias);
+                }
+                else if (opcaoEscolhida > 4)
+                {
+                    Console.WriteLine("-");
+                    Console.WriteLine("ESCOLHA UMA DAS OPÇÕES ABAIXO" + Environment.NewLine);
+                }
+                else
+                {
+                    Console.WriteLine("-");
+                    break;
+                }
+            }
+        }
+        public static void PrintarMenuSubcategoria()
+        {
+            while (true)
+            {
+                Console.WriteLine("Adicionar = 1");
+                Console.WriteLine("Pesquisar = 2");
+                Console.WriteLine("Editar = 3");
+                Console.WriteLine("Excluir = 4");
+                Console.WriteLine("Sair = 0" + Environment.NewLine);
+                //Recebe a opção escolhida
+                Console.Write("Escolha a opção desejada: ");
+                int opcaoEscolhida = int.Parse(Console.ReadLine());
+
+                //Chama o metodo adicionar
+                if (opcaoEscolhida == 1)
+                {
+                    Subcategoria.AdicionaSubcategoria(listaSubcategorias);
+                }
+                //Chama o metodo pesquisar
+                else if (opcaoEscolhida == 2)
+                {
+                    Subcategoria.PesquisaSubcategoria(listaSubcategorias);
+                    Console.WriteLine("--------------------");
+                }
+                //Chama o metodo editar
+                else if (opcaoEscolhida == 3)
+                {
+                    Subcategoria.EditarSubcategoria(listaSubcategorias);
+                    Console.WriteLine("--------------------");
+                }
+                //Chama o metodo excluir
+                else if (opcaoEscolhida == 4)
+                {
+                    Subcategoria.ExcluirSubcategoria(listaSubcategorias);
                 }
                 else if (opcaoEscolhida > 4)
                 {
