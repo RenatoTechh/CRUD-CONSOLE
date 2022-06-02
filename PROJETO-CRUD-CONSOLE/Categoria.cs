@@ -36,20 +36,29 @@ namespace PROJETO_CRUD_CONSOLE
             Console.Write("Digite o nome da Categoria: ");
             string nome = Console.ReadLine();
 
-            if (ValidaNome(nome))
+            if (String.IsNullOrWhiteSpace(nome))
+                
             {
-                //Cria um novo objeto
-                var categoria = new Categoria(nome, lista);
-
-                //Adiciona a nova categoria na lista
-                lista.Add(categoria);
-                Console.WriteLine("-");
-                Console.WriteLine("CATEGORIA CADASTRADA COM SUCESSO"+Environment.NewLine);
+                throw new ArgumentException("Nome não pode ser nulo ou vazio");
 
             }
             else
             {
-                Console.WriteLine("É PERMITIDO SOMENTE DE 3 - 128 CARACTERES (A-Z) ");
+                if (ValidaNome(nome))
+                {
+                    //Cria um novo objeto
+                    var categoria = new Categoria(nome, lista);
+
+                    //Adiciona a nova categoria na lista
+                    lista.Add(categoria);
+                    Console.WriteLine("-");
+                    Console.WriteLine("CATEGORIA CADASTRADA COM SUCESSO" + Environment.NewLine);
+
+                }
+                else
+                {
+                    Console.WriteLine("É PERMITIDO SOMENTE DE 3 - 128 CARACTERES (A-Z) ");
+                }
             }
         }
         public static void PesquisaCategoria(List<Categoria> lista)
@@ -130,9 +139,9 @@ namespace PROJETO_CRUD_CONSOLE
             }
             else
             {
-                lista.RemoveAll((x) => x.Nome == categoriaEscolhida);
+                lista.RemoveAll((x) => x.Nome.ToLower() == categoriaEscolhida.ToLower());
                 Console.WriteLine("-");
-                Console.WriteLine("CATEGORIA EXCLUÍDA COM SUCESSO"+Environment.NewLine);
+                Console.WriteLine("CATEGORIA EXCLUÍDA COM SUCESSO" + Environment.NewLine);
             }
         }
         public static bool ValidaNome(string nome)

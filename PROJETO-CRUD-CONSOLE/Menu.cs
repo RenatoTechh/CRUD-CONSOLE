@@ -108,18 +108,42 @@ namespace PROJETO_CRUD_CONSOLE
                 //Chama o metodo adicionar
                 if (opcaoEscolhida == 1)
                 {
-                    Subcategoria.AdicionaSubcategoria(listaSubcategorias);
+                    try
+                    {
+                        Subcategoria.AdicionaSubcategoria(listaSubcategorias);
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    
                 }
                 //Chama o metodo pesquisar
                 else if (opcaoEscolhida == 2)
                 {
-                    Subcategoria.PesquisaSubcategoria(listaSubcategorias);
+                    try
+                    {
+                        Subcategoria.PesquisaSubcategoria(listaSubcategorias);
+                    }
+                    catch (ObjetoDaListaNaoEncontradoException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    
                     Console.WriteLine("--------------------");
                 }
                 //Chama o metodo editar
                 else if (opcaoEscolhida == 3)
                 {
-                    Subcategoria.EditarSubcategoria(listaSubcategorias);
+                    try
+                    {
+                        Subcategoria.EditarSubcategoria(listaSubcategorias);
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    
                     Console.WriteLine("--------------------");
                 }
                 //Chama o metodo excluir

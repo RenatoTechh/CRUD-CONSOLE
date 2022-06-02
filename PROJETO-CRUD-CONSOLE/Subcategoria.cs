@@ -33,23 +33,31 @@ namespace PROJETO_CRUD_CONSOLE
         public static void AdicionaSubcategoria(List<Subcategoria> lista)
         {
             //Recebe o nome da categoria
-            Console.Write("Digite o nome da Categoria: ");
+            Console.Write("Digite o nome da Subcategoria: ");
+
             string nome = Console.ReadLine();
-            if (ValidaNome(nome))
+            if (String.IsNullOrWhiteSpace(nome))
             {
-                //Cria um novo objeto
-                var subcategoria = new Subcategoria(nome, lista);
-
-                //Adiciona a nova categoria na lista
-                lista.Add(subcategoria);
-                Console.WriteLine("-");
-                Console.WriteLine("SUBCATEGORIA CADASTRADA COM SUCESSO" + Environment.NewLine);
-
+                throw new ArgumentException("Nome não pode ser nulo ou vazio");
             }
             else
             {
-                Console.WriteLine("É PERMITIDO SOMENTE DE 3 - 128 CARACTERES (A-Z) ");
-            }
+                if (ValidaNome(nome))
+                {
+                    //Cria um novo objeto
+                    var subcategoria = new Subcategoria(nome, lista);
+
+                    //Adiciona a nova categoria na lista
+                    lista.Add(subcategoria);
+                    Console.WriteLine("-");
+                    Console.WriteLine("SUBCATEGORIA CADASTRADA COM SUCESSO" + Environment.NewLine);
+
+                }
+                else
+                {
+                    Console.WriteLine("É PERMITIDO SOMENTE DE 3 - 128 CARACTERES (A-Z) ");
+                }
+            } 
         }
         public static void PesquisaSubcategoria(List<Subcategoria> lista)
         {
@@ -66,7 +74,7 @@ namespace PROJETO_CRUD_CONSOLE
                 if (listaEncontrados.Count() == 0)
                 {
                     Console.WriteLine();
-                    Console.WriteLine("SUBCATEGORIA NÃO ENCONTRADA" + Environment.NewLine);
+                    throw new ObjetoDaListaNaoEncontradoException("Subcategoria não encontrada");
                 }
                 foreach (var subcategoria in listaEncontrados)
                 {
@@ -84,32 +92,82 @@ namespace PROJETO_CRUD_CONSOLE
         {
             //Recebe o nome da categoria procurada
             Console.WriteLine("--------------------");
-            Console.Write("DIGITE O NOME DA CATEGORIA PARA EDITAR: ");
+            Console.Write("DIGITE O NOME DA SUBCATEGORIA PARA EDITAR: ");
             string subcategoriaEscolhida = Console.ReadLine();
 
             //Verifica se a categoria existe e retorna uma lista com os resultados encontrados
-            var listaCategoriasEncontradas = lista.Where(x => x.Nome.ToLower().Equals(subcategoriaEscolhida.ToLower()));
+            var listaSubcategoriasEncontradas = lista.Where(x => x.Nome.ToLower().Equals(subcategoriaEscolhida.ToLower()));
 
-            if (listaCategoriasEncontradas.Count() == 0)
+            if (listaSubcategoriasEncontradas.Count() == 0)
             {
                 Console.WriteLine();
                 Console.WriteLine("SUBCATEGORIA NÃO ENCONTRADA" + Environment.NewLine);
             }
 
-            foreach (var subcategoria in listaCategoriasEncontradas)
+            foreach (var subcategoria in listaSubcategoriasEncontradas)
             {
                 //Exibe a categoria na tela
                 Console.WriteLine("-");
                 Console.WriteLine(subcategoria.ToString() + Environment.NewLine);
 
-                Console.Write("DIGITE UM NOVO NOME PARA A SUBCATEGORIA: ");
-                string subcategoriaNovoNome = Console.ReadLine();
+                Console.WriteLine("EDITAR NOME = 1");
+                Console.WriteLine("ATIVAR/DESATIVAR SUBCATEGORIA = 2");
+                Console.WriteLine("Sair = 0" + Environment.NewLine);
 
-                subcategoria.Nome = subcategoriaNovoNome;
-                subcategoria.DataModificacao = DateTime.Now;
+                Console.Write("ESCOLHA A OPÇÃO DESEJADA: ");
+                var opcaoEscolhida = int.Parse(Console.ReadLine());
+
+                switch (opcaoEscolhida)
+                {
+                    case 1:
+                        Console.Write("DIGITE UM NOVO NOME PARA A SUBCATEGORIA: ");
+                        string subcategoriaNovoNome = Console.ReadLine();
+
+                        if (String.IsNullOrWhiteSpace(subcategoriaNovoNome))
+                        {
+                            throw new ArgumentException("Nome não pode ser nulo ou vazio");
+                        }
+                        else
+                        {
+                            if (ValidaNome(subcategoriaNovoNome))
+                            {
+                                subcategoria.Nome = subcategoriaNovoNome;
+                                Console.Write("NOVO NOME DA SUBCATEGORIA EDITADO COM SUCESSO, AGORA ELA SE CHAMA: " + subcategoria.Nome + Environment.NewLine);
+                                subcategoria.DataModificacao = DateTime.Now;
+                            }
+                            else
+                            {
+                                Console.WriteLine("É PERMITIDO SOMENTE DE 3 - 128 CARACTERES (A-Z) ");
+                            }
+                        }
+                        break;
+                    case 2:
+                        Console.Write("Deseja desativar a subcategoria? (Y/N): ");
+                        var opcao = Console.ReadLine();
+                        if (opcao.ToLower() == "y")
+                        {
+                            subcategoria.Status = "Inativo";
+                            Console.WriteLine();
+                            Console.WriteLine("SUBCATEGORIA DESATIVADA");
+                            subcategoria.DataModificacao = DateTime.Now;
+                        }
+                        else if(opcao.ToLower() == "y")
+                        {
+                            Console.WriteLine("Status = Ativo");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Digite uma opção válida.");
+                        }
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        Console.WriteLine("DIGITE UMA OPÇÃO VÁLIDA");
+                        break;
+                }
+
                 Console.WriteLine("-");
-                Console.Write("NOVO NOME DA SUBCATEGORIA EDITADO COM SUCESSO, AGORA ELA SE CHAMA: " + subcategoria.Nome + Environment.NewLine);
-
             }
         }
         public static void ExcluirSubcategoria(List<Subcategoria> lista)
@@ -129,7 +187,7 @@ namespace PROJETO_CRUD_CONSOLE
             }
             else
             {
-                lista.RemoveAll((x) => x.Nome == subcategoriaEscolhida);
+                lista.RemoveAll((x) => x.Nome.ToLower() == subcategoriaEscolhida.ToLower());
                 Console.WriteLine("-");
                 Console.WriteLine("SUBCATEGORIA EXCLUÍDA COM SUCESSO" + Environment.NewLine);
             }
@@ -140,12 +198,8 @@ namespace PROJETO_CRUD_CONSOLE
             {
                 return true;
             }
-            else
-            {
                 return false;
-            }
-        }
-
+        }             
         public override string ToString()
         {
             if (DataModificacao == _dataNaoModificada)

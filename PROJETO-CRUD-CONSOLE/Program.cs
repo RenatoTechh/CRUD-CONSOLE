@@ -13,7 +13,7 @@ namespace PROJETO_CRUD_CONSOLE
         {
 
             Menu.SelecionaMenu();
-          
+            
         }
     }
 }
