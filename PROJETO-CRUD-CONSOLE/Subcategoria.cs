@@ -15,6 +15,8 @@ namespace PROJETO_CRUD_CONSOLE
         public DateTime DataCriacao { get; private set; }
         public DateTime DataModificacao { get; private set; }
 
+        public static List<Produto> listaProdutos = new List<Produto>();
+
         public Subcategoria(string nome, List<Subcategoria> lista)
         {
             Id = lista.Count;
@@ -151,7 +153,7 @@ namespace PROJETO_CRUD_CONSOLE
                             Console.WriteLine("SUBCATEGORIA DESATIVADA");
                             subcategoria.DataModificacao = DateTime.Now;
                         }
-                        else if(opcao.ToLower() == "y")
+                        else if(opcao.ToLower() == "n")
                         {
                             Console.WriteLine("Status = Ativo");
                         }

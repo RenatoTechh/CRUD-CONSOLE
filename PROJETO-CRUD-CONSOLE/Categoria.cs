@@ -15,6 +15,8 @@ namespace PROJETO_CRUD_CONSOLE
         public DateTime DataCriacao { get; private set; }
         public DateTime DataModificacao { get; private set; }
 
+        public List<Subcategoria> Subcategorias = new List<Subcategoria>();
+
         public Categoria(string nome, List<Categoria> lista)
         {
             Id = lista.Count;
@@ -82,6 +84,10 @@ namespace PROJETO_CRUD_CONSOLE
                 {
                     Console.WriteLine("-");
                     Console.WriteLine(categoria.ToString());
+                    foreach (var subcategoria in categoria.Subcategorias)
+                    {
+                        Console.WriteLine(subcategoria.ToString()); 
+                    }
                 }
             }
             else
@@ -160,6 +166,7 @@ namespace PROJETO_CRUD_CONSOLE
         {
             if (DataModificacao == _dataNaoModificada)
             {
+                
                 return "ID: " + Id + "\n" + "NOME DA CATEGORIA: " + Nome + "\n" + "STATUS: " + Status + "\n" + "DATA DE CRIAÇÃO: " + DataCriacao;
             }
             return "ID: " + Id + "\n" + "NOME DA CATEGORIA: " + Nome + "\n" + "STATUS: " + Status + "\n" + "DATA DE CRIAÇÃO: " + DataCriacao + "\n" + "DATA DA MODIFICAÇÃO: " + DataModificacao;
